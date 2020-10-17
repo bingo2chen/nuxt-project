@@ -29,7 +29,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/axios',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -40,6 +41,8 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
   /*
   ** Build configuration
@@ -51,5 +54,15 @@ module.exports = {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:7001',
+      secure: false,
+      pathRewrite: {
+        '^/api': '/'
+      }
+    }
+  },
+  telemetry: false
 }
