@@ -50,7 +50,7 @@
           nickname: [
             { required: true, message: '请输入昵称' },
           ],
-          captche: [
+          captcha: [
             { required: true, message: '请输入验证码' },
           ],
           passwd: [
@@ -90,7 +90,7 @@
               repasswd: md5(this.form.repasswd),
             }
             const ret = await this.$http.post('/user/register', payload)
-            if (ret.data.code === 0) {
+            if (ret.code === 0) {
               this.$alert('注册成功', '成功', {
                 confirmButtonText: '确定',
                 callback: action => {
@@ -108,7 +108,7 @@
         })
       },
       resetCaptcha() {
-        this.code.captche = '/api/captcha?_t' + new Date().getTime()
+        this.code.captcha = '/api/captcha?_t' + new Date().getTime()
       },
     },
   }

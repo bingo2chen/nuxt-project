@@ -27,9 +27,17 @@
     img
       width 200px
   .captcha-container
+    position relative
+    width 340px
     .captcha
       position absolute
-      left 160px
-    input 
-      width 150px
+      right -110px
+      img
+        width 90px
+        height 50px
+        cursor pointer
+      button
+        width 90px
+        height 40px
+        padding 0
 </style>
