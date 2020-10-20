@@ -17,7 +17,7 @@
         <div class="captcha">
           <el-button type="primary" @click="sendEmailCode" :disabled="send.timer>0">{{sendText}}</el-button>
         </div>
-        <el-input placeholder="请输入邮箱验证码" v-model="form.captcha"></el-input>
+        <el-input placeholder="请输入邮箱验证码" v-model="form.emailcode"></el-input>
       </el-form-item>
       <el-form-item prop="passwd" label="密码">
         <el-input placeholder="请输入密码" v-model="form.passwd"></el-input>
@@ -74,6 +74,7 @@
           passwd: '123456',
           repasswd: '123456',
           nickname: 'edcwwb',
+          emailcode: '',
         }
       }
     },
@@ -96,14 +97,18 @@
             const payload = {
               email: this.form.email,
               captcha: this.form.captcha,
+              emailcode: this.form.emailcode,
               passwd: md5(this.form.passwd),
             }
             const ret = await this.$http.post('/user/login', payload)
             if (ret.code === 0) {
               // token存储，登录成功，返回token
               this.$message.success('登录成功')
+              localStorage.setItem('token', ret.data.token)
+              console.log(ret.data.token);
+              
               setTimeout(() => {
-                this.$router.push('/login') 
+                this.$router.push('/') 
               }, 500);
             } else {
               // this.$message.error(ret.message)
